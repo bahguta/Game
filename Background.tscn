@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/background1.png" type="Texture" id=1]
+[ext_resource path="res://bg.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "background",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "background1",
+"speed": 5.0
+} ]
+
+[node name="Background" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="background" type="AnimatedSprite" parent="."]
+position = Vector2( 319.729, 480.006 )
+scale = Vector2( 0.999214, 0.685689 )
+frames = SubResource( 1 )
+animation = "background"
+
+[node name="background1" type="AnimatedSprite" parent="."]
+position = Vector2( 319.993, -479.897 )
+scale = Vector2( 1, 0.685683 )
+frames = SubResource( 2 )
+animation = "background1"
