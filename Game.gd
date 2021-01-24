@@ -24,7 +24,7 @@ func _ready():
 
 func _process(delta):
 	rng.randomize()
-	var random = rng.randi_range(-500,10)
+	var random = rng.randi_range(-500,50)
 	if	random > 0 :
 		var enemy = load("res://Enemy.tscn")
 		var e = enemy.instance()
