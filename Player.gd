@@ -1,21 +1,14 @@
 extends Area2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-#export (PackedScene) var Bullet
-
 var move 
 var limit
 var Speed 
-var enemy
 var score
 var currentBullet
 var life 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	move = Vector2()
 	limit  = get_viewport_rect().size
@@ -25,8 +18,6 @@ func _ready():
 	_shoot()
 	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move = Vector2()
 
@@ -40,8 +31,6 @@ func _process(delta):
 		position -= transform.y * Speed * delta
 	if	Input.is_action_pressed("ui_down"):
 		position += transform.y * Speed * delta
-
-	var enemies = get_parent()._getEnemies()
 
 	if	currentBullet != null && currentBullet._isSuccess() :
 		score +1
