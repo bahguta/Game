@@ -31,5 +31,6 @@ func _boom(area):
 	boom.position.y = area.position.y
 	boom.set_frame(0)
 	boom.play()
+	boom.get_node("AudioPlayer").play()
 	yield(get_tree().create_timer(2.0), "timeout")
 	boom.stop()

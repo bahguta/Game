@@ -41,7 +41,7 @@ func _setScore():
 
 func _setLife():
 	player._setLife()
-	life._setLife()
+	life._setLife(player.life)
 	_getLostWindow()
 
 func _resetPlay():

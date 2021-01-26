@@ -4,16 +4,15 @@ extends Area2D
 var move 
 var limit
 var Speed 
-var score
+var life
 var currentBullet
-var life 
+
 
 
 func _ready():
 	move = Vector2()
 	limit  = get_viewport_rect().size
 	Speed = 200
-	score = 0
 	life = 3
 	_shoot()
 	
@@ -47,6 +46,3 @@ func _getCurrentPosition():
 
 func _setLife():
 	life -= 1
-
-func _getLife() -> int:
-	return life
