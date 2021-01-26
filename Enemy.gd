@@ -1,6 +1,5 @@
 extends Area2D
 
-#var speed = 0
 var speed = 100
 var move = Vector2()
 var rng = RandomNumberGenerator.new()
@@ -62,3 +61,4 @@ func _getCurrentPosition():
 func _setLife():
 	get_parent()._setLife()
 	
+

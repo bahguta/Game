@@ -32,10 +32,6 @@ func _process(delta):
 	if	Input.is_action_pressed("ui_down"):
 		position += transform.y * Speed * delta
 
-	if	currentBullet != null && currentBullet._isSuccess() :
-		score +1
-		print("score: " , score)
-
 	position.x = clamp(position.x, 0, limit.x)
 	position.y = clamp(position.y, 0, limit.y-100)
 	

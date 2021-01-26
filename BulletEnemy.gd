@@ -33,8 +33,18 @@ func _on_BulletEnemy_area_entered(area):
 		area.queue_free()
 		queue_free()
 		success = true
+		_boom(area)
 		get_parent()._setLife()
 
 
 func _isSuccess() :
 	return success
+
+func _boom(area):
+	var boom = get_parent().get_parent().get_node("Boom")
+	boom.position.x = area.position.x
+	boom.position.y = area.position.y
+	boom.set_frame(0)
+	boom.play()
+	yield(get_tree().create_timer(2.0), "timeout")
+	boom.stop()

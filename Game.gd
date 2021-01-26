@@ -22,11 +22,13 @@ func _ready():
 func _process(delta):
 	rng.randomize()
 	var random = rng.randi_range(-500,50)
+	
 	if	random > 0 :
 		var enemy = load("res://Enemy.tscn")
 		var e = enemy.instance()
 		add_child(e)
 		enemies.push_front(e)
+	
 	if	life.life == 0 :
 		get_tree().paused = true
 
@@ -37,12 +39,10 @@ func _getEnemies():
 func _setScore():
 	score._setScore()
 
-
 func _setLife():
 	player._setLife()
 	life._setLife()
 	_getLostWindow()
-
 
 func _resetPlay():
 	var p = load("res://Player.tscn")
@@ -55,7 +55,7 @@ func _resetPlay():
 func _getLostWindow():
 	var popup = WindowDialog.new()
 	popup.set_title("You lost a life !!! NOOB")
-	popup.popup(Rect2(limit.x, limit.y, 100, 50))
+	popup.popup(Rect2(0, 0, 100, 50))
 	popup.set_position(limit/2)
 	add_child(popup)
 	popup.show()

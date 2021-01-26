@@ -7,7 +7,6 @@ func _ready():
 	print(life)
 	text = "LIFE:  " + str(life)
 
-
 func _setLife():
 	life -= 1
 	text = "LIFE:  " + str(life)

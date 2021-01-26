@@ -14,16 +14,22 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 47.7542, 52.524 )
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=[
+"player",
+]]
 position = Vector2( 316.705, 836.44 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite" parent="." groups=[
+"player",
+]]
 frames = SubResource( 1 )
 animation = "player"
 
-[node name="PlayerShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerShape2D" type="CollisionShape2D" parent="." groups=[
+"player",
+]]
 shape = SubResource( 2 )
