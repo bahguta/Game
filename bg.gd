@@ -21,4 +21,4 @@ func _process(delta):
 	else :
 		position.y += 4
 		move.y += 2
-	
+

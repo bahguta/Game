@@ -1,12 +1,12 @@
 extends Node2D
 
-
+# var players []  = ??? Moje multiplayer da se probva 
 var player
 var enemies
 var score
 var limit
 var rng
-var font
+#var font
 var life
 
 
@@ -22,14 +22,15 @@ func _ready():
 func _process(delta):
 	rng.randomize()
 	var random = rng.randi_range(-500,50)
-	
 	if	random > 0 :
 		var enemy = load("res://Enemy.tscn")
 		var e = enemy.instance()
 		add_child(e)
 		enemies.push_front(e)
 	
+	# Game Over 
 	if	life.life == 0 :
+		# TODO - :D  Trqqq se implementira prozorcheto za nova igra :D
 		get_tree().paused = true
 
 
