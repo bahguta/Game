@@ -2,8 +2,6 @@ extends Area2D
 
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var speed = 1000
 var limit
 var success = false
@@ -34,7 +32,7 @@ func _on_BulletEnemy_area_entered(area):
 		queue_free()
 		success = true
 		_boom(area)
-		get_parent()._setLife()
+		get_parent().get_parent()._lostLife()
 
 
 func _isSuccess() :
@@ -47,5 +45,3 @@ func _boom(area):
 	boom.set_frame(0)
 	boom.play()
 	boom.get_node("AudioPlayer").play()
-	#yield(get_tree().create_timer(2.0), "timeout")
-	#boom.stop()

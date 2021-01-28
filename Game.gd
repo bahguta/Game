@@ -6,8 +6,9 @@ var enemies
 var score
 var limit
 var rng
-#var font
 var life
+var player_life
+onready var gameover_dialog = get_node("GameOverDialog")
 
 
 func _ready():
@@ -17,9 +18,24 @@ func _ready():
 	enemies = []
 	score = get_node("Score")
 	life = get_node("Life")
-
+	# s po 3 jivotcheta :) 
+	player_life = 3
+	life._setLife(player_life)
+	
 
 func _process(delta):
+	_enemy_spotted()
+	
+
+func _getEnemies():
+	return enemies
+	
+	
+func _setScore():
+	score._setScore()
+	
+	
+func _enemy_spotted():
 	rng.randomize()
 	var random = rng.randi_range(-500,50)
 	if	random > 0 :
@@ -27,23 +43,16 @@ func _process(delta):
 		var e = enemy.instance()
 		add_child(e)
 		enemies.push_front(e)
-	
-	# Game Over 
-	if	life.life == 0 :
-		# TODO - :D  Trqqq se implementira prozorcheto za nova igra :D
-		get_tree().paused = true
+		
 
-
-func _getEnemies():
-	return enemies
-	
-func _setScore():
-	score._setScore()
-
-func _setLife():
-	player._setLife()
-	life._setLife(player.life)
-	_getLostWindow()
+func _lostLife():
+	player_life -= 1
+	life._setLife(player_life)
+	if	player_life == 0:
+		gameover_dialog.show()
+	else :
+		_getLostWindow()
+		
 
 func _resetPlay():
 	var p = load("res://Player.tscn")
@@ -52,15 +61,28 @@ func _resetPlay():
 	for e in enemies :
 		if	e != null :
 			e.queue_free()
+			
 
 func _getLostWindow():
 	var popup = WindowDialog.new()
-	popup.set_title("You lost a life !!! NOOB")
-	popup.popup(Rect2(0, 0, 100, 50))
+	popup.popup_centered(Vector2(50, 0))
+	popup.set_title("You lost a life !!! NOOB :D")
 	popup.set_position(limit/2)
 	add_child(popup)
 	popup.show()
 	yield(get_tree().create_timer(4.0), "timeout")
 	_resetPlay()
 	popup.hide()
+	
+
+func _getGameOverWindow():
+	gameover_dialog.show()
+	
+
+func _on_LostDialog_confirmed():
+	player_life = 3
+	life._setLife(player_life)
+	score._gameover()
+	_resetPlay()
+	gameover_dialog.hide()
 	

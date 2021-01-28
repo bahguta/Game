@@ -58,7 +58,4 @@ func _shoot():
 func _getCurrentPosition():
 	return position
 
-func _setLife():
-	get_parent()._setLife()
-	
 

@@ -3,7 +3,7 @@ extends RichTextLabel
 var life 
 
 func _ready():
-	life = get_parent().get_node("Player").life
+	life = get_parent().player_life
 	print(life)
 	text = "LIFE:  " + str(life)
 
