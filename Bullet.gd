@@ -6,8 +6,7 @@ var success = false
 
 
 func _ready():
-	print("Shooting projectile")
-
+	pass
 
 func _process(delta):
 	position -= transform.y * speed * delta
@@ -24,6 +23,16 @@ func _on_Bullet_area_entered(area):
 		queue_free()
 		_boom(area)
 		get_parent().get_parent()._setScore()
+	elif ("Boss" in area.get_name()) :
+		queue_free()
+		var boss = get_parent().get_parent().get_node("Boss")
+		if	boss.life != 0:
+			boss._rest_Life()
+		else:
+			boss.queue_free()
+			get_parent().get_parent()._set_boss_score()
+			_boom(area)
+		
 
 func _boom(area):
 	var boom = get_parent().get_parent().get_node("Boom")

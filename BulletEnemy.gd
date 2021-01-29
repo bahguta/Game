@@ -8,8 +8,7 @@ var success = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Shooting projectile")
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,7 +18,6 @@ func _getCurrentPosition():
 	return position
 
 func _body_entered(body):
-	print(body.get_name())
 	if (body.get_name() == "Player") :
 		print("Ouch!")
 		body.queue_free()

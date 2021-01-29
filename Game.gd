@@ -8,7 +8,11 @@ var limit
 var rng
 var life
 var player_life
+var boss
+var boss_loaded
 onready var gameover_dialog = get_node("GameOverDialog")
+onready var BOSS = load("res://Boss.tscn")
+
 
 
 func _ready():
@@ -21,11 +25,21 @@ func _ready():
 	# s po 3 jivotcheta :) 
 	player_life = 3
 	life._setLife(player_life)
-	
+	boss_loaded = false
+
 
 func _process(delta):
-	_enemy_spotted()
-	
+	if	enemies.size() >= 50:
+		if	!boss_loaded:
+			#var b = load("res://Boss.tscn")
+			boss = BOSS.instance()
+			add_child(boss)
+			boss_loaded = true
+		elif boss && boss.life <= 0:
+			boss_loaded = false
+			enemies = []
+	else:
+		_enemy_spotted()
 
 func _getEnemies():
 	return enemies
@@ -46,22 +60,25 @@ func _enemy_spotted():
 		
 
 func _lostLife():
-	player_life -= 1
-	life._setLife(player_life)
 	if	player_life == 0:
 		gameover_dialog.show()
 	else :
 		_getLostWindow()
+		player_life -= 1
+		life._setLife(player_life)
 		
 
 func _resetPlay():
 	var p = load("res://Player.tscn")
 	player = p.instance()
 	add_child(player)
+	if	boss && boss_loaded:
+		boss.queue_free()
+		boss_loaded = false
 	for e in enemies :
 		if	e != null :
 			e.queue_free()
-			
+	enemies = []
 
 func _getLostWindow():
 	var popup = WindowDialog.new()
@@ -86,3 +103,7 @@ func _on_LostDialog_confirmed():
 	_resetPlay()
 	gameover_dialog.hide()
 	
+
+func _set_boss_score():
+	score._set_boss_score()
+	#_getGameOverWindow()
