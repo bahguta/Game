@@ -10,6 +10,7 @@ var count
 var go_right
 var rng
 var life
+onready var bullet = load("res://BulletEnemy.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,7 +22,7 @@ func _ready():
 	hold = false
 	count = 0
 	go_right = false
-	life = 50
+	life = 10
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,32 +37,38 @@ func _move():
 	else:
 		_move_left()
 	if	position.y >= limit.y/4:
-			_shoot()
+			if get_parent().has_node("Player"):
+				_shoot()
 	else:
 		move.y += 1
 		position.y += 1
+
+
 func _shoot():
 	if	count < 5:
 		count += 1
 	else:
 		var random = rng.randi_range(-500,20)
 		if	random > 0:
-			var bullet = load("res://BulletEnemy.tscn")
 			var b = bullet.instance()
-			add_child(b)
+			b.position = Vector2(position.x, position.y -20)
+			get_tree().get_root().add_child(b)
 			count = 0
-		
+
+
 func _move_left():
 	if	int(position.x) > 200 :
 		position.x -= 1
 	else:
 		go_right = true
-	
+
+
 func _move_right():
 	if	int(position.x) < 460 :
 		position.x += 1
 	else:
 		go_right = false
+
 
 func _rest_Life():
 	life -= 1
